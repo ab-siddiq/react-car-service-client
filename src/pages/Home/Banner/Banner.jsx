@@ -28,7 +28,6 @@ const bannerItem = [
     slideNo: ['slide3','slide1'],
   },
 ]
-console.log(bannerItem)
   return (
     <div className="carousel w-full rounded-xl">
       {
