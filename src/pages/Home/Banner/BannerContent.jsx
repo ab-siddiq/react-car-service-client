@@ -4,8 +4,8 @@ const BannerContent = ({ content: { id, img, slideNo } }) => {
   console.log(slideNo[0]);
   return (
     <div id={id} className="carousel-item relative w-full h-[400px]  ">
-      <img src={img} className="w-full rounded-lg" />
-      <div className="absolute flex justify-end transform -translate-y-1/2 left-5 right-5 bottom-0 gap-4">
+      <img src={img} className="w-full " />
+      <div className="absolute  flex justify-end transform -translate-y-1/2 left-5 right-5 bottom-0 gap-4">
         <a href={`#${slideNo[0]}`} className="btn btn-circle bg-[rgba(255, 255, 255, 0.20) hover:border-transparent hover:bg-[#FF3811]">
           ❮
         </a>
@@ -13,7 +13,7 @@ const BannerContent = ({ content: { id, img, slideNo } }) => {
           ❯
         </a>
       </div>
-      <div className="absolute flex  items-center  pl-20  text-white bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0.00)] h-full w-1/2">
+      <div className="absolute  flex  items-center  pl-20  text-white bg-gradient-to-r from-[#151515] to-[rgba(21, 21, 21, 0.00)] h-full w-1/2">
         <div className=" ">
         <h2 className="text-6xl font-bold">Affordable Price For Car Servicing</h2>
         <p className="text-md my-4">

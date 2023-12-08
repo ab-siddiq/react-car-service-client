@@ -30,7 +30,7 @@ const bannerItem = [
 ]
 console.log(bannerItem)
   return (
-    <div className="carousel w-full ">
+    <div className="carousel w-full rounded-xl">
       {
         bannerItem.map(item=><BannerContent key={item.id} content={item}></BannerContent>)
       }
