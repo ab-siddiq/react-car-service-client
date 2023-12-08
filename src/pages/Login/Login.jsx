@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import loginImage from "../../assets/login/login.svg";
-
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { FaGoogle  } from "react-icons/fa6";
+import { useState } from "react";
 const Login = () => {
+  const [show, setShow] = useState(true);
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -31,17 +34,28 @@ const Login = () => {
                 required
               />
             </div>
-            <div className="form-control">
+            <div className="form-control relative">
               <label className="label">
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="password"
+                type={!show ? "text" : "password"}
                 placeholder="password"
-                className="input input-bordered"
+                className="input input-bordered "
                 name="password"
                 required
               />
+              {show ? (
+                <EyeIcon
+                  onClick={() => setShow(!show)}
+                  className="h-6 w-6 text-gray-500 absolute top-12 right-2 cursor-pointer"
+                />
+              ) : (
+                <EyeSlashIcon
+                  onClick={() => setShow(!show)}
+                  className="h-6 w-6 text-red-500 absolute top-12 right-2 cursor-pointer"
+                />
+              )}
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
@@ -56,7 +70,10 @@ const Login = () => {
           </form>
           <div className="text-center">
             <p className="">or signup with</p>
-            <p className="">New here? <Link className="" to='/signup'>Signup</Link></p>
+            <div className="flex justify-center">
+            <button><FaGoogle className="rounded-full h-6 w-6  my-2" /></button>
+            </div>
+            <p className="text-sm mb-10 mt-2">Don't have account? <Link className="text-[#FF3811]" to='/signup'>Signup</Link></p>
           </div>
         </div>
       </div>
