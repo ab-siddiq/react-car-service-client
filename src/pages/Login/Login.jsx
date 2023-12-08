@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import loginImage from "../../assets/login/login.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { FaGoogle  } from "react-icons/fa6";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 const Login = () => {
   const [show, setShow] = useState(true);
+  const {singIn} = useContext(AuthContext)
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -12,6 +14,9 @@ const Login = () => {
     const password = form.password.value;
     const user = { password: password, email: email };
     console.log(user)
+    singIn(email,password)
+    .then(res=>console.log(res.user))
+    .then(error=>console.log(error))
   };
   return (
     <div className="hero min-h-screen ">
@@ -41,7 +46,7 @@ const Login = () => {
               <input
                 type={!show ? "text" : "password"}
                 placeholder="password"
-                className="input input-bordered "
+                className="input input-bordered pr-10"
                 name="password"
                 required
               />
