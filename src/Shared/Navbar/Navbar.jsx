@@ -1,5 +1,6 @@
 import React from "react";
 import logo from '../../assets/logo.svg'
+import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <div className="navbar bg-base-100">
@@ -70,7 +71,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <Link to='/login' className="btn">Login</Link>
       </div>
     </div>
   );
