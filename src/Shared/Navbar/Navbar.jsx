@@ -1,5 +1,5 @@
 import React from "react";
-import logo from '../../assets/logo.svg'
+import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
@@ -47,31 +47,21 @@ const Navbar = () => {
         </div>
         <img src={logo} alt="" />
       </div>
-      <div className="navbar-center hidden lg:flex">
+      <div className="navbar-end hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Item 1</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
+            <Link to="">Services</Link>
           </li>
           <li>
-            <a>Item 3</a>
+            <Link to="">About</Link>
+          </li>
+          <li>
+            <Link to="/login">Login</Link>
           </li>
         </ul>
-      </div>
-      <div className="navbar-end">
-        <Link to='/login' className="btn">Login</Link>
       </div>
     </div>
   );
