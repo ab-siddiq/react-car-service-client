@@ -5,11 +5,11 @@ const Services = () => {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    fetch("services.json")
+    fetch("http://localhost:5000/services")
       .then((res) => res.json())
       .then((data) => setServices(data)); // Update services state here
   }, []);
-  services.map((ser) => console.log(ser));
+  // services.map((ser) => console.log(ser));
   return (
     <div className="my-5">
       <div className="text-center mb-10">
@@ -19,7 +19,7 @@ const Services = () => {
           humour, or randomised words which don't look even slightly believable.{" "}
         </p>
       </div>
-      <div class="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-4 gap-4">
         {services.map((service) => (
           <ServiceCard key={service._id} service={service}></ServiceCard>
         ))}
