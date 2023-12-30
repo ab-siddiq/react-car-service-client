@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const CheckOut = () => {
+  const {user} = useContext(AuthContext)
   const service = useLoaderData();
   const { title,price,_id,img } = service;
   const handleCheckout = e =>{
@@ -95,6 +97,7 @@ const CheckOut = () => {
             <input
               type="email"
               name="email"
+              defaultValue={user?.email}
               className="input input-bordered"
               required
             />
