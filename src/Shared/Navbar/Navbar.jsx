@@ -7,7 +7,7 @@ const Navbar = () => {
   const handleLogout=()=>{
     logOut()
     .then()
-    .catch(err=>console.log(error))
+    .catch(err=>console.log(err))
   }
   return (
     <div className="navbar bg-base-100">
@@ -66,9 +66,14 @@ const Navbar = () => {
             <Link to="">About</Link>
           </li>
           {user?.email ? (
+            <>
+            <li>
+            <Link to="/bookings">My Bookings</Link>
+          </li>
             <li>
               <button onClick={handleLogout}>logout</button>
             </li>
+            </>
           ) : (
             <li>
               <Link to="/login">Login</Link>
