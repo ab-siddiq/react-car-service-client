@@ -1,52 +1,55 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../providers/AuthProvider';
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Bookings = () => {
-  const {user} = useContext(AuthContext)
-  const [bookings,setBookings] = useState([])
-  const url = `http://localhost:5000/bookings?email=${user?.email}`
-  useEffect(()=>{
+  const { user } = useContext(AuthContext);
+  const [bookings, setBookings] = useState([]);
+  const url = `http://localhost:5000/bookings?email=${user?.email}`;
+  useEffect(() => {
     fetch(url)
-    .then(res=>res.json())
-    .then(data=>console.log(data))
-  },[])
+      .then((res) => res.json())
+      .then((data) => setBookings(data));
+  }, []);
   return (
-    <div className="overflow-x-auto">
-    <table className="table">
-      {/* head */}
-      <thead>
-        <tr>
-          <th></th>
-          <th>Name</th>
-          <th>Job</th>
-          <th>Favorite Color</th>
-        </tr>
-      </thead>
-      <tbody>
-        {/* row 1 */}
-        <tr>
-          <th>1</th>
-          <td>Cy Ganderton</td>
-          <td>Quality Control Specialist</td>
-          <td>Blue</td>
-        </tr>
-        {/* row 2 */}
-        <tr>
-          <th>2</th>
-          <td>Hart Hagerty</td>
-          <td>Desktop Support Technician</td>
-          <td>Purple</td>
-        </tr>
-        {/* row 3 */}
-        <tr>
-          <th>3</th>
-          <td>Brice Swyre</td>
-          <td>Tax Accountant</td>
-          <td>Red</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+    <div className="overflow-x-auto mx-auto h-screen mt-24">
+      <table className="table">
+        {/* head */}
+        <thead>
+          <tr>
+            <th>SL</th>
+            <th>Image</th>
+            <th>CustomerName</th>
+            <th>Phone Number</th>
+            <th>Price</th>
+            <th>Service Name</th>
+            <th>Service Id</th>
+            <th>Email</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bookings.map((booking, ind) => (
+            <tr>
+              <td>{ind + 1}</td>
+              <td>
+                <div className="avatar">
+                  <div className="mask mask-squircle w-12 h-12">
+                    <img src={booking.img} alt={booking.serviceName} />
+                  </div>
+                </div>
+              </td>
+              <td>{booking.customerName}</td>
+              <td>{booking.phone}</td>
+              <td>{booking.price}</td>
+              <td>{booking.serviceName}</td>
+              <td>{booking.serviceId}</td>
+              <td>{booking.email}</td>
+              <td>{booking.date}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
