@@ -20,13 +20,33 @@ const Bookings = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          if(data.deletedCount>0){
-            alert('deleted')
-            const remaining = bookings.filter(booking=>booking._id!==id)
-            setBookings(remaining)
+          if (data.deletedCount > 0) {
+            alert("deleted");
+            const remaining = bookings.filter((booking) => booking._id !== id);
+            setBookings(remaining);
           }
         });
     }
+  };
+  const handleBookingConfirm = (id) => {
+    fetch(`http://localhost:5000/bookings/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ status: "confirm" }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          const remaining = bookings.filter((booking) => booking._id !== id);
+          const updated = booking.find((booking) => onseeking._id === id);
+          updated.status = "confirm";
+          const newBooking = [updated, ...remaining];
+          setBookings(newBooking);
+        }
+      });
   };
   return (
     <div className="overflow-x-auto mx-auto h-screen mt-24">
@@ -61,6 +81,7 @@ const Bookings = () => {
             <th>Service Id</th>
             <th>Email</th>
             <th>Date</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -104,6 +125,18 @@ const Bookings = () => {
               <td>{booking.serviceId}</td>
               <td>{booking.email}</td>
               <td>{booking.date}</td>
+              <td>
+                {booking.status ? (
+                  <span className="font-bold text-green-700">Confirmed</span>
+                ) : (
+                  <button
+                    onClick={() => handleBookingConfirm(booking._id)}
+                    className="btn btn-ghost text-yellow-700"
+                  >
+                    Please Confirm
+                  </button>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
