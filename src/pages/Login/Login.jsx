@@ -1,28 +1,44 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImage from "../../assets/login/login.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-import { FaGoogle  } from "react-icons/fa6";
+import { FaGoogle } from "react-icons/fa6";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 const Login = () => {
   const [show, setShow] = useState(true);
-  const {singIn} = useContext(AuthContext)
-  const location = useLocation()
-  const navigate = useNavigate()
-  const from = location.state?.from?.pathname || '/'
+  const { singIn } = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
     const user = { password: password, email: email };
-    console.log(user)
-    singIn(email,password)
-    .then(res=>{
-      console.log(res.user)
-      navigate(from,{replace:true})
-    })
-    .then(error=>console.log(error))
+    console.log(user);
+    singIn(email, password)
+      .then((res) => {
+        console.log(res.user);
+        const loggedUser = {
+          email: user.email
+        }
+        console.log(loggedUser)
+        fetch('http://localhost:5000/jwt',{
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(loggedUser)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+          console.log('jwt response',data)
+          localStorage.setItem('car-access-token',data.token)
+          navigate(from, { replace: true });
+        })
+      })
+      .catch((error) => console.log(error));
   };
   return (
     <div className="hero min-h-screen ">
@@ -74,7 +90,7 @@ const Login = () => {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button  className="btn bg-[#FF3811] text-white font-bold text-lg hover:bg-transparent hover:text-[#FF3811] hover:border-2 hover:border-gray-400 hover:ring-4 hover:ring-[#FF3811]">
+              <button className="btn bg-[#FF3811] text-white font-bold text-lg hover:bg-transparent hover:text-[#FF3811] hover:border-2 hover:border-gray-400 hover:ring-4 hover:ring-[#FF3811]">
                 Login
               </button>
             </div>
@@ -82,9 +98,16 @@ const Login = () => {
           <div className="text-center">
             <p className="">or signup with</p>
             <div className="flex justify-center">
-            <button><FaGoogle className="rounded-full h-6 w-6  my-2" /></button>
+              <button>
+                <FaGoogle className="rounded-full h-6 w-6  my-2" />
+              </button>
             </div>
-            <p className="text-sm mb-10 mt-2">Don't have account? <Link className="text-[#FF3811]" to='/signup'>Signup</Link></p>
+            <p className="text-sm mb-10 mt-2">
+              Don't have account?{" "}
+              <Link className="text-[#FF3811]" to="/signup">
+                Signup
+              </Link>
+            </p>
           </div>
         </div>
       </div>

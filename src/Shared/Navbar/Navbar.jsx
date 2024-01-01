@@ -3,12 +3,14 @@ import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 const Navbar = () => {
-  const { user ,logOut} = useContext(AuthContext);
-  const handleLogout=()=>{
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogout = () => {
     logOut()
-    .then()
-    .catch(err=>console.log(err))
-  }
+      .then(() => {
+        localStorage.removeItem("car-access-token");
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -67,12 +69,14 @@ const Navbar = () => {
           </li>
           {user?.email ? (
             <>
-            <li>
-            <Link to="/bookings">My Bookings</Link>
-          </li>
-            <li>
-              <button onClick={handleLogout}>logout</button>
-            </li>
+              <li>
+                <Link to="/bookings">My Bookings</Link>
+              </li>
+              <li>
+                <Link to="/login" onClick={handleLogout}>
+                  logout
+                </Link>
+              </li>
             </>
           ) : (
             <li>
