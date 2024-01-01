@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImage from "../../assets/login/login.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { FaGoogle  } from "react-icons/fa6";
@@ -7,6 +7,9 @@ import { AuthContext } from "../../providers/AuthProvider";
 const Login = () => {
   const [show, setShow] = useState(true);
   const {singIn} = useContext(AuthContext)
+  const location = useLocation()
+  const navigate = useNavigate()
+  const from = location.state?.from?.pathname || '/'
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -15,7 +18,10 @@ const Login = () => {
     const user = { password: password, email: email };
     console.log(user)
     singIn(email,password)
-    .then(res=>console.log(res.user))
+    .then(res=>{
+      console.log(res.user)
+      navigate(from,{replace:true})
+    })
     .then(error=>console.log(error))
   };
   return (
