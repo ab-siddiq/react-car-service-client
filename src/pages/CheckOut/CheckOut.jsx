@@ -3,42 +3,42 @@ import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const CheckOut = () => {
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   const service = useLoaderData();
-  const { title,price,_id,img } = service;
-  const handleCheckout = e =>{
-    e.preventDefault()
-    const form = e.target
-    const name = form.name.value
-    const phone = form.phone.value
-    const price = form.price.value
-    const serviceName = form.service.value
-    const email = form.email.value
-    const date = form.date.value
+  const { title, price, _id, img } = service;
+  const handleCheckout = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const phone = form.phone.value;
+    const price = form.price.value;
+    const serviceName = form.service.value;
+    const email = form.email.value;
+    const date = form.date.value;
     const bookingDetails = {
       customerName: name,
-      phone:phone,
-      price:price,
-      serviceName:serviceName,
+      phone: phone,
+      price: price,
+      serviceName: serviceName,
       serviceId: _id,
-      email:email,
-      date:date,
+      email: email,
+      date: date,
       img,
-    }
-    console.log(bookingDetails)
-    fetch('http://localhost:5000/bookings',{
-      method: 'POST',
+    };
+    console.log(bookingDetails);
+    fetch("https://react-car-service-server.vercel.app/bookings", {
+      method: "POST",
       headers: {
-        'content-type': 'application/json'
+        "content-type": "application/json",
       },
-      body: JSON.stringify(bookingDetails)
+      body: JSON.stringify(bookingDetails),
     })
-    .then(res=>res.json())
-    .then(data=>{
-      if(data.insertedId)alert('booking successful')
-      console.log(data)
-    })
-  }
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) alert("booking successful");
+        console.log(data);
+      });
+  };
   return (
     <div>
       <form className="card-body" onSubmit={handleCheckout}>
@@ -85,7 +85,7 @@ const CheckOut = () => {
             <input
               type="text"
               name="price"
-              defaultValue={'$'+price}
+              defaultValue={"$" + price}
               className="input input-bordered"
               required
               readOnly
@@ -116,7 +116,9 @@ const CheckOut = () => {
           </div>
         </div>
         <div className="form-control mt-6">
-          <button className="bg-[#FF3811] px-3 py-2 border-2 border-transparent rounded-lg text-white hover:bg-transparent hover:border-2 hover:border-[#FF3811] hover:text-[#FF3811] font-bold">Checkout</button>
+          <button className="bg-[#FF3811] px-3 py-2 border-2 border-transparent rounded-lg text-white hover:bg-transparent hover:border-2 hover:border-[#FF3811] hover:text-[#FF3811] font-bold">
+            Checkout
+          </button>
         </div>
       </form>
     </div>

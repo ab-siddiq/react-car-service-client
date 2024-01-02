@@ -1,33 +1,33 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Bookings = () => {
   const { user } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
-  const navigate = useNavigate()
-  const url = `http://localhost:5000/bookings?email=${user?.email}`;
+  const navigate = useNavigate();
+  const url = `https://react-car-service-server.vercel.app/bookings?email=${user?.email}`;
   useEffect(() => {
-    fetch(url,{
-      method: 'GET',
+    fetch(url, {
+      method: "GET",
       headers: {
-        authorization: `Bearer ${localStorage.getItem('car-access-token')}`
-      }
+        authorization: `Bearer ${localStorage.getItem("car-access-token")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
-        if(!data.error){
-          setBookings(data)
-        }else{
-          navigate('/')
+        if (!data.error) {
+          setBookings(data);
+        } else {
+          navigate("/");
         }
       });
-  }, [url,navigate]);
+  }, [url, navigate]);
   const handleDeleteBooking = (id) => {
     const proceed = confirm("Are you sure to delete??");
     if (proceed) {
       console.log(id);
-      fetch(`http://localhost:5000/bookings/${id}`, {
+      fetch(`https://react-car-service-server.vercel.app/bookings/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -42,7 +42,7 @@ const Bookings = () => {
     }
   };
   const handleBookingConfirm = (id) => {
-    fetch(`http://localhost:5000/bookings/${id}`, {
+    fetch(`https://react-car-service-server.vercel.app/bookings/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

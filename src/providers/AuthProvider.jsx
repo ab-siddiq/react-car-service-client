@@ -1,4 +1,3 @@
-import React, { createContext, useState, useEffect } from "react";
 import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -8,6 +7,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import React, { createContext, useEffect, useState } from "react";
 import app from "../firebase/firebase.config";
 export const AuthContext = createContext(app);
 const auth = getAuth(app);
@@ -39,7 +39,7 @@ const AuthProvider = ({ children }) => {
         const loggedUser = {
           email: currentUser.email,
         };
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://react-car-service-server.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
