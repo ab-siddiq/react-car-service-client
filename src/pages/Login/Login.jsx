@@ -1,9 +1,9 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginImage from "../../assets/login/login.svg";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
-import { FaGoogle } from "react-icons/fa6";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 const Login = () => {
   const [show, setShow] = useState(true);
   const { singIn } = useContext(AuthContext);
@@ -20,25 +20,12 @@ const Login = () => {
     singIn(email, password)
       .then((res) => {
         console.log(res.user);
-        const loggedUser = {
-          email: user.email
-        }
-        console.log(loggedUser)
-        fetch('http://localhost:5000/jwt',{
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json'
-          },
-          body: JSON.stringify(loggedUser)
+       
+        console.log(user);
+        navigate(from, { replace: true });
+        
         })
-        .then(res=>res.json())
-        .then(data=>{
-          console.log('jwt response',data)
-          localStorage.setItem('car-access-token',data.token)
-          navigate(from, { replace: true });
-        })
-      })
-      .catch((error) => console.log(error));
+        .catch((error) => console.log(error));
   };
   return (
     <div className="hero min-h-screen ">
@@ -96,12 +83,7 @@ const Login = () => {
             </div>
           </form>
           <div className="text-center">
-            <p className="">or signup with</p>
-            <div className="flex justify-center">
-              <button>
-                <FaGoogle className="rounded-full h-6 w-6  my-2" />
-              </button>
-            </div>
+            <SocialLogin></SocialLogin>
             <p className="text-sm mb-10 mt-2">
               Don't have account?{" "}
               <Link className="text-[#FF3811]" to="/signup">

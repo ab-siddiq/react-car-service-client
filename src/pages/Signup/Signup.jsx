@@ -4,6 +4,7 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { FaGoogle } from "react-icons/fa6";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
+import SocialLogin from "../../Shared/SocialLogin/SocialLogin";
 const Signup = () => {
   const [show, setShow] = useState(true);
   const {user,createUser} = useContext(AuthContext)
@@ -63,11 +64,11 @@ const Signup = () => {
                   className="h-6 w-6 text-red-500 absolute top-12 right-2 cursor-pointer"
                 />
               )}
-              <label className="label">
+              {/* <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
                   Forgot password?
                 </a>
-              </label>
+              </label> */}
             </div>
             <div className="form-control mt-6">
               <button className="btn bg-[#FF3811] text-white font-bold text-lg hover:bg-transparent hover:text-[#FF3811] hover:border-2 hover:border-gray-400 hover:ring-4 hover:ring-[#FF3811]">
@@ -76,12 +77,7 @@ const Signup = () => {
             </div>
           </form>
           <div className="text-center">
-            <p className="">or signup with</p>
-            <div className="flex justify-center">
-              <button>
-                <FaGoogle className="rounded-full h-6 w-6  my-2" />
-              </button>
-            </div>
+            <SocialLogin></SocialLogin>
             <p className="text-sm mb-10 mt-2">
               Already have an account?{" "}
               <Link className="text-[#FF3811]" to="/login">

@@ -19,7 +19,7 @@ const Bookings = () => {
         if(!data.error){
           setBookings(data)
         }else{
-          Navigate('/')
+          navigate('/')
         }
       });
   }, [url,navigate]);
